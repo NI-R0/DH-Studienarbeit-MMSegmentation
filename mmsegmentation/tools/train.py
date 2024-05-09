@@ -98,6 +98,7 @@ def main():
 
     # start training
     runner.train()
+    #AvoidCUDAOOM.retry_if_cuda_oom(runner.train())()
 
 
 if __name__ == '__main__':
