@@ -2,7 +2,7 @@ _base_ = [
     '../_base_/models/upernet_convnext.py',
     '../_base_/datasets/uavid-4xb4-1024x1024.py',
     '../_base_/default_runtime.py',
-    '../_base_/schedules/schedule_160k.py'
+    '../_base_/schedules/schedule_60k.py'
 ]
 crop_size = (1024, 1024)
 data_preprocessor = dict(size=crop_size)
@@ -58,4 +58,5 @@ train_dataloader = dict(batch_size=2)
 val_dataloader = dict(batch_size=1)
 test_dataloader = val_dataloader
 
-#ETA: 1d11h
+
+#ETA: 11h10min

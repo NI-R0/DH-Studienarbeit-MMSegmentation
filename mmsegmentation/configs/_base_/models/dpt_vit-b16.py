@@ -1,4 +1,4 @@
-norm_cfg = dict(type='SyncBN', requires_grad=True)
+norm_cfg = dict(type='BN', requires_grad=True)
 data_preprocessor = dict(
     type='SegDataPreProcessor',
     mean=[123.675, 116.28, 103.53],
@@ -9,7 +9,7 @@ data_preprocessor = dict(
 model = dict(
     type='EncoderDecoder',
     data_preprocessor=data_preprocessor,
-    pretrained='pretrain/vit-b16_p16_224-80ecf9dd.pth', # noqa
+    pretrained='pretrain/jx_vit_base_p16_224-80ecf9dd.pth', # noqa
     backbone=dict(
         type='VisionTransformer',
         img_size=224,
@@ -18,6 +18,7 @@ model = dict(
         num_heads=12,
         out_indices=(2, 5, 8, 11),
         final_norm=False,
+        #with_cp=True,
         with_cls_token=True,
         output_cls_token=True),
     decode_head=dict(
@@ -26,7 +27,7 @@ model = dict(
         channels=256,
         embed_dims=768,
         post_process_channels=[96, 192, 384, 768],
-        num_classes=150,
+        num_classes=8,
         readout_type='project',
         input_transform='multiple_select',
         in_index=(0, 1, 2, 3),

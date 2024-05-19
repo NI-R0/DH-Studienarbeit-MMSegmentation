@@ -2,13 +2,13 @@
 dataset_type = 'UavidDataset'
 data_root = 'data/uavid' #Substitute with the path to your dataset
 #2160 x 4096 Resolution
-crop_size = (1080,2048)
+crop_size = (1024,1024)
 train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations'),
     dict(
     type='RandomResize',
-    scale=(2048, 1080),
+    scale=(2048, 1024),
     ratio_range=(0.5, 2.0),
     keep_ratio=True),
     dict(type='RandomCrop', crop_size=crop_size, cat_max_ratio=0.75),
@@ -18,7 +18,7 @@ train_pipeline = [
 ]
 test_pipeline = [
     dict(type='LoadImageFromFile'),
-    dict(type='Resize', scale=(2048, 1080), keep_ratio=True),
+    dict(type='Resize', scale=(2048, 1024), keep_ratio=True),
     # add loading annotation after ``Resize`` because ground truth
     # does not need to do resize data transform
     dict(type='LoadAnnotations'),

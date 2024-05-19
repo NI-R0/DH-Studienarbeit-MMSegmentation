@@ -21,6 +21,6 @@ default_hooks = dict(
     logger=dict(type='LoggerHook', interval=50, log_metric_by_epoch=False),
     param_scheduler=dict(type='ParamSchedulerHook'),
     #checkpoint=dict(type='CheckpointHook', by_epoch=False, interval=12000),
-    checkpoint=dict(type='CheckpointHook', by_epoch=False, interval=1200, save_best=['mIoU', 'aAcc'], max_keep_ckpts = 5),
+    checkpoint=dict(type='CheckpointHook', by_epoch=False, interval=3000, save_best=['mIoU', 'aAcc'], max_keep_ckpts = 5),
     sampler_seed=dict(type='DistSamplerSeedHook'),
     visualization=dict(type='SegVisualizationHook'))
