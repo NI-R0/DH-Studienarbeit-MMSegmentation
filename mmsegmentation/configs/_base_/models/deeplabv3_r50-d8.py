@@ -1,3 +1,4 @@
+
 # model settings
 norm_cfg = dict(type='SyncBN', requires_grad=True)
 data_preprocessor = dict(
@@ -20,7 +21,6 @@ model = dict(
         strides=(1, 2, 1, 1),
         norm_cfg=norm_cfg,
         norm_eval=False,
-        #with_cp=True,
         style='pytorch',
         contract_dilation=True),
     decode_head=dict(
@@ -51,3 +51,4 @@ model = dict(
     # model training and testing settings
     train_cfg=dict(),
     test_cfg=dict(mode='whole'))
+

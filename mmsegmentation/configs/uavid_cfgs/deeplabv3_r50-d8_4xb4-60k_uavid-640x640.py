@@ -1,8 +1,11 @@
+
+
+
 _base_ = [
     '../_base_/models/deeplabv3_r50-d8.py', # Path to the model
     '../_base_/datasets/uavid-4xb4-640x640.py', # Path to your dataset config file
-    '../_base_/default_runtime.py',
-    '../_base_/schedules/schedule_60k.py' # Specify according to your needs
+    '../_base_/default_runtime.py', # Standard stuff like visualizations etc.
+    '../_base_/schedules/schedule_60k.py' # Iterations
 ]
 crop_size = (640,640)
 data_preprocessor = dict(size=crop_size)

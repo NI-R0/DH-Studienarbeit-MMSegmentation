@@ -9,26 +9,52 @@ import json
 from pathlib import *
 
 palette=[
-            [128, 0, 0],
-            [128, 64, 128],
-            [192, 0, 192],
-            [0, 128, 0],
-            [128, 128, 0],
-            [64, 64, 0],
-            [64, 0, 128],
-            [0, 0, 0]
-        ]
+    [102,102,156],
+    [128,64,128],
+    [0,0,142],
+    [107,142,35],
+    [107,142,35],
+    [0,0,0],
+    [0,0,142],
+    [0,0,0]
+]
 
 not_in_p = []
+
+def map(i: int) -> int:
+    if(i == 0):
+        return 3
+    if(i == 10):
+        return 0
+    if(i == 20):
+        return 1
+    if(i == 30):
+        return 2
+    if(i == 40):
+        return 7
 
 def explore_file(path:str) -> None:
     
     img = Image.open(path)
     img_arr = np.asarray(img, dtype=np.uint8).tolist()
-    #print(np.asarray(img, dtype=np.uint8).shape)
     converted_list = []
-    # print(img_arr)
-    # print(len(img_arr))
+    #print(img_arr)
+    for h in img_arr:
+        for v in h:
+            converted_list.append(map(v*10))
+    #print(converted_list)
+    #print(len(converted_list))
+    converted_arr = np.asarray(converted_list, dtype=np.uint8).reshape(np.asarray(img, dtype=np.uint8).shape)
+    converted_img = Image.fromarray(converted_arr).convert('P')
+    converted_img.putpalette(np.array(palette, dtype=np.uint8))
+    p = '..'+path.split('.')[2]+'_labelTrainIds.png'
+    print(p)
+    converted_img.save(p)
+
+    #print(np.asarray(img, dtype=np.uint8).shape)
+    #print(len(img_arr))
+
+    return
     for horizontal in img_arr:
         for rgb in horizontal:
             #print(palette.index(rgb))
@@ -79,13 +105,26 @@ def convert_test():
 
 #numpy_test()
 
-path = "../UAVID/uavid_converted/annotations/test2017/280_000000_src.png"
-explore_file(path)
+path = "../mmsegmentation/data/udd_converted/annotations/"
+#explore_file(path)
 #convert_test()
 
 # seg_map = np.zeros((2160,4096),dtype=np.uint8)
 
-# for subfolder,dirs,files in os.walk(path):
-#     for file in files:
-#         filename = file.split("src")[0]+"_src.png"
-#         shutil.move(subfolder+'/'+file, subfolder+'/'+filename)
+for subfolder,dirs,files in os.walk(path):
+    for file in files:
+        # print(subfolder+'/'+file)
+        # filename = file.split(".")[0] + "_labelTrainIds.png"
+        # # filename = file.split("src")[0]+"_src.png"
+        # new_path = subfolder+'/'+filename
+        # # print(filename)
+        # print(new_path)
+        # shutil.move(subfolder+'/'+file, new_path)
+        # print(subfolder+'/'+file)
+        filename = file.split("_labelTrainIds")[0] + ".png"
+        # filename = file.split("src")[0]+"_src.png"
+        new_path = subfolder+'/'+filename
+        # print(filename)
+        print(new_path)
+        shutil.move(subfolder+'/'+file, new_path)
+        explore_file(new_path)
